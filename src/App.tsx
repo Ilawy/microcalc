@@ -14,6 +14,8 @@ import {
 import { proxy, useSnapshot } from "valtio";
 import { calc } from "./main";
 import { Drawer } from "vaul";
+import { useEffect } from "react";
+import hotkeys from "hotkeys-js";
 
 const state = proxy({
   buffer: "",
@@ -31,6 +33,7 @@ interface Button {
   onClick: () => void;
   bg: string;
   fg: string;
+  hotKey: string | null;
 }
 
 //sets currentIsResult
@@ -43,6 +46,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: "Delete",
   },
   {
     label: <DeleteIcon />,
@@ -51,6 +55,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: "Backspace",
   },
   {
     label: <PercentIcon />,
@@ -59,6 +64,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: "shift+5",
   },
   {
     label: <DivideIcon />,
@@ -67,6 +73,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: "NumpadDivide,Slash",
   },
   {
     label: "7",
@@ -75,6 +82,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "7",
   },
   {
     label: "8",
@@ -83,6 +91,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "8",
   },
   {
     label: "9",
@@ -91,6 +100,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "9",
   },
   {
     label: <XIcon />,
@@ -99,6 +109,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: "NumpadMultiply",
   },
   {
     label: "4",
@@ -107,6 +118,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "4",
   },
   {
     label: "5",
@@ -115,6 +127,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "5",
   },
   {
     label: "6",
@@ -123,6 +136,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "6",
   },
   {
     label: <MinusIcon />,
@@ -131,6 +145,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: "-",
   },
   {
     label: "1",
@@ -139,6 +154,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "1",
   },
   {
     label: "2",
@@ -147,6 +163,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "2",
   },
   {
     label: "3",
@@ -155,6 +172,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "3",
   },
   {
     label: <PlusIcon />,
@@ -163,6 +181,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: "+,NumpadAdd",
   },
 
   {
@@ -172,6 +191,7 @@ const basic_buttons: Button[] = [
     },
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: ".",
   },
   {
     label: "0",
@@ -180,12 +200,14 @@ const basic_buttons: Button[] = [
     },
     bg: "#FFFFFF",
     fg: "#000000",
+    hotKey: "0",
   },
   {
     label: null,
     onClick: () => null,
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: null,
   },
   {
     label: <EqualIcon />,
@@ -201,13 +223,36 @@ const basic_buttons: Button[] = [
     },
     bg: "#6EACDA",
     fg: "#FFFFFF",
+    hotKey: "enter",
   },
 ];
+
+hotkeys("*", (e) => {
+  console.log(e);
+});
+
+basic_buttons
+  .filter((b) => b.hotKey)
+  .forEach((item) => {
+    window.addEventListener("keydown", (e) => {
+      const hks = (item.hotKey as string)
+        .split(",")
+        .map((hk) => hk.trim().toLowerCase());
+      if (
+        hks.some(
+          (hk) => hk === e.key.toLowerCase() || hk === e.code.toLowerCase()
+        )
+      ) {
+        item.onClick();
+      }
+    });
+  });
+
 function App() {
   const snapshot = useSnapshot(state);
 
   return (
-    <main className="bg-[#021526] w-full min-h-[100svh] flex flex-col p-3 gap-5">
+    <main className="bg-[#021526]  w-full max-w-md m-auto min-h-[100svh] flex flex-col p-3 gap-5">
       <section className="relative w-full h-64 bg-white rounded-2xl flex flex-col gap-3 p-3">
         <span className="absolute top-2 right-2">
           {snapshot.currentIsResult ? <CopyIcon /> : null}
