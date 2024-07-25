@@ -146,7 +146,7 @@ export class TinyWASI {
 
   private clock_time_get(
     id: number,
-    precision: number,
+    _precision: number,
     timeOut: number
   ): number {
     if (id !== 0) return this.WASI_ERRNO_INVAL;

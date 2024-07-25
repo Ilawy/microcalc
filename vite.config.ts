@@ -10,4 +10,9 @@ export default defineConfig({
       plugins: [tw()],
     },
   },
+  esbuild: {
+    supported: {
+      "top-level-await": true,
+    },
+  },
 });

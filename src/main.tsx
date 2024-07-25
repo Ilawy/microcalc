@@ -11,6 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 import calcWasm from "./assets/calc.wasm?init";
 import { TinyWASI } from "./lib/tinywasi.ts";
+
 const wasi = new TinyWASI();
 const instance = await calcWasm({
   ...wasi.imports,

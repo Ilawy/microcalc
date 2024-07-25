@@ -11,7 +11,6 @@ import {
   PlusIcon,
   XIcon,
 } from "lucide-react";
-import { useState } from "react";
 import { proxy, useSnapshot } from "valtio";
 import { calc } from "./main";
 import { Drawer } from "vaul";
