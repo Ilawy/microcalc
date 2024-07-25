@@ -14,7 +14,6 @@ import {
 import { proxy, useSnapshot } from "valtio";
 import { calc } from "./main";
 import { Drawer } from "vaul";
-import { useEffect } from "react";
 import hotkeys from "hotkeys-js";
 
 const state = proxy({
