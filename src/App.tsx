@@ -7,6 +7,7 @@ import {
   EqualIcon,
   MinusIcon,
   PercentIcon,
+  PiIcon,
   PlusIcon,
   XIcon,
 } from "lucide-react";
@@ -203,8 +204,10 @@ const basic_buttons: Button[] = [
     hotKey: "0",
   },
   {
-    label: null,
-    onClick: () => null,
+    label: <PiIcon />,
+    onClick: () => {
+      state.buffer += "π";
+    },
     bg: "#6EACDA",
     fg: "#FFFFFF",
     hotKey: null,

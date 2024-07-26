@@ -25,7 +25,10 @@ const memory = instance.exports.memory as WebAssembly.Memory;
 const buffer = new Uint8Array(memory.buffer);
 
 export function calc(expression: string) {
-  expression = expression.replace("x", "*").replace("÷", "/");
+  expression = expression
+    .replace("x", "*")
+    .replace("÷", "/")
+    .replace("π", "pi");
   const expressionBytes = new TextEncoder().encode(expression);
   const ptr = alloc(expressionBytes.length);
   buffer.set(expressionBytes, ptr);
