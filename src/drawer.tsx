@@ -1,7 +1,15 @@
 import { CircleHelpIcon, ExternalLinkIcon } from "lucide-react";
 import { Drawer } from "vaul";
 
-export default function MobileDrawer() {
+export default function MobileDrawer({
+  title,
+  body,
+  buttonLabel,
+}: {
+  title: string;
+  body: React.ReactNode;
+  buttonLabel: React.ReactNode;
+}) {
   return (
     <Drawer.Root shouldScaleBackground>
       <Drawer.Trigger asChild>
@@ -9,7 +17,7 @@ export default function MobileDrawer() {
           type="button"
           className="bg-white col-span-full h-full p-3 flex justify-center items-center rounded-lg"
         >
-          <CircleHelpIcon />
+          {buttonLabel}
         </button>
       </Drawer.Trigger>
       <Drawer.Portal>
@@ -19,31 +27,8 @@ export default function MobileDrawer() {
           <div className="p-4 bg-white rounded-t-[10px] flex-1">
             <Drawer.Handle className="bg-gray-300 mb-8" />
             <div className="max-w-md mx-auto">
-              <Drawer.Title className="font-medium mb-4">µCalc</Drawer.Title>
-              <p className="text-gray-600 mb-2">
-                µCalc is a simple calculator app made with React and{" "}
-                <a
-                  className="text-blue-600 underline"
-                  href="https://github.com/zserge/expr"
-                  target="_blank"
-                >
-                  zserge/expr
-                </a>
-                .
-              </p>
-              <details>
-                <summary>Special Thanks</summary>
-                <ul>
-                  <li>
-                    <a href="https://github.com/emilkowalski/vaul">
-                      emilkowalski/vaul
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/zserge/expr">zserge/expr</a>
-                  </li>
-                </ul>
-              </details>
+              <Drawer.Title className="font-medium mb-4">{title}</Drawer.Title>
+              {body}
             </div>
           </div>
           <div className="p-4 bg-gray-100 border-t border-gray-200 mt-auto">

@@ -16,6 +16,8 @@ import { calc } from "./main";
 import { Drawer } from "vaul";
 import hotkeys from "hotkeys-js";
 import MobileDrawer from "./drawer";
+import DesktopDealog from "./dialog";
+import { useMedia } from "react-use";
 
 const state = proxy({
   buffer: "",
@@ -250,7 +252,7 @@ basic_buttons
 
 function App() {
   const snapshot = useSnapshot(state);
-
+  const isMobile = useMedia("(max-width: 768px)");
   return (
     <main className="bg-[#021526]  w-full max-w-md m-auto min-h-[100svh] flex flex-col p-3 gap-5">
       <section className="relative w-full h-64 bg-white rounded-2xl flex flex-col gap-3 p-3">
@@ -296,9 +298,45 @@ function App() {
             </button>
           );
         })}
-        <MobileDrawer />
+        {isMobile ? (
+          <MobileDrawer
+            title="uCalc"
+            buttonLabel={<CircleHelpIcon />}
+            body={<About />}
+          />
+        ) : (
+          <DesktopDealog
+            title="uCalc"
+            buttonLabel={<CircleHelpIcon />}
+            body={<About />}
+          />
+        )}
       </section>
     </main>
+  );
+}
+
+function About() {
+  return (
+    <>
+      <p className="text-gray-600 mb-2">
+        µCalc is a simple calculator app made with React and{" "}
+        <a
+          className="text-blue-600 underline"
+          href="https://github.com/zserge/expr"
+          target="_blank"
+        >
+          zserge/expr
+        </a>
+        .
+      </p>
+      <i>
+        Favicon provided by{" "}
+        <a target="_blank" href="https://icons8.com">
+          Icons8
+        </a>
+      </i>
+    </>
   );
 }
 

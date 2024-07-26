@@ -5,3 +5,7 @@
 body{
     background-color: #021526;
 }
+
+a{
+    @apply text-blue-600 underline;
+}
