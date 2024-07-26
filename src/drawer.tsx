@@ -1,4 +1,4 @@
-import { CircleHelpIcon, ExternalLinkIcon } from "lucide-react";
+import { ExternalLinkIcon } from "lucide-react";
 import { Drawer } from "vaul";
 
 export default function MobileDrawer({

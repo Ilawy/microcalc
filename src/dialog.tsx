@@ -15,7 +15,7 @@ export default function DesktopDealog({
   title: string;
   body: React.ReactNode;
 }) {
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>

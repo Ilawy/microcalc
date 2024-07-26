@@ -5,7 +5,6 @@ import {
   DivideIcon,
   DotIcon,
   EqualIcon,
-  ExternalLinkIcon,
   MinusIcon,
   PercentIcon,
   PlusIcon,
@@ -13,7 +12,6 @@ import {
 } from "lucide-react";
 import { proxy, useSnapshot } from "valtio";
 import { calc } from "./main";
-import { Drawer } from "vaul";
 import hotkeys from "hotkeys-js";
 import MobileDrawer from "./drawer";
 import DesktopDealog from "./dialog";
