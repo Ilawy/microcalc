@@ -15,13 +15,16 @@ static struct expr_func user_funcs[] = {
 
 float calc(char *expr, size_t len)
 {
-    struct expr_var_list vars = {0};
+    struct expr_var_list vars = {};
+    struct expr_var *pi = expr_var(&vars, "pi", 2);
+    pi->value = 3.14159265358979323846f;
     struct expr *e = expr_create(expr, len, &vars, user_funcs);
     if (e == NULL)
     {
         printf("Syntax error");
         return 0;
     }
+
     float result = expr_eval(e);
     expr_destroy(e, &vars);
     return result;
